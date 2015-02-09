@@ -81,7 +81,7 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
         drawCenter = attrs.getBoolean(R.styleable.ClockView_drawGrid, true);
         Paint basePaint = createNewBasePaint(getResources().getDimension(R.dimen.arc_width));
 
-        gridPaint = createNewGridPaint(basePaint);
+        gridPaint = createNewGridPaint(basePaint, attrs);
         hoursPaintSimple = createNewHoursPaint(basePaint, attrs);
         hoursPaintBlur = new Paint(hoursPaintSimple);
         hoursPaintBlur.setMaskFilter( new BlurMaskFilter(15, BlurMaskFilter.Blur.NORMAL));
@@ -113,20 +113,18 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
         return newPaint;
     }
 
-    Paint createNewGridPaint(Paint base) {
+    Paint createNewGridPaint(Paint base, TypedArray attrs) {
 
         Paint newPaint = new Paint(base);
         newPaint.setStrokeWidth(1.0f);
-        newPaint.setColor(getResources().getColor(R.color.light));
+        newPaint.setColor(attrs.getColor(R.styleable.ClockView_secondsColor, Color.WHITE));
         return newPaint;
-
     }
 
     Paint createNewHoursPaint(Paint base, TypedArray attrs) {
 
         Paint newPaint = new Paint(base);
-        //newPaint.setColor(attrs.getColor(R.color.light, 0));
-        newPaint.setColor(getResources().getColor(R.color.light_blue));
+        newPaint.setColor(attrs.getColor(R.styleable.ClockView_hoursColor, Color.BLUE));
         return newPaint;
     }
 

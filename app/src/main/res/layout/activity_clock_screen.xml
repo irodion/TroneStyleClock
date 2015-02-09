@@ -16,7 +16,9 @@
         android:paddingLeft="0dp"
         custom:drawGrid="false"
         custom:arcWidth="@dimen/arc_width"
-
+        custom:hoursColor="@color/light_blue"
+        custom:secondsColor="@color/light"
+        custom:minutesColor="@color/light"
         />
 
     <TextView
