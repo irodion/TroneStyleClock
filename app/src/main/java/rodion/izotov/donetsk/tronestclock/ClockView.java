@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -51,6 +52,7 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
     private RectF  secondsBound = new RectF();
 
     private final float degreesInWatch = 360.0f;
+    private final int hoursInHalfADay = 12;
 
     /* constructors */
     public ClockView(Context context) {
@@ -129,11 +131,11 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
     }
 
     @Override
-    protected void onVisibilityChanged(View changedView, int visiblity) {
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
 
-        super.onVisibilityChanged(changedView, visiblity);
+        super.onVisibilityChanged(changedView, visibility);
 
-        if (visiblity == VISIBLE) {
+        if (visibility == VISIBLE) {
             startClock();
         } else
         {
@@ -161,7 +163,7 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
         minutesBound = new RectF(bound);
         minutesBound.inset((arcWidth + arcPadding), (arcWidth + arcPadding));
         hoursBound = new RectF(minutesBound);
-        hoursBound.inset((arcWidth + arcPadding) * 3, (arcWidth + arcPadding)*3);
+        hoursBound.inset((arcWidth + arcPadding)*3, (arcWidth + arcPadding)*3);
         secondsBound = new RectF(minutesBound);
         secondsBound.inset((arcWidth + arcPadding) * 1.5f, (arcWidth + arcPadding) * 1.5f);
 
@@ -175,6 +177,7 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
         return true;
     }
 
+    /* on every refresh */
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -188,11 +191,13 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
 
         msec += sec * 1000;
 
-        hrs = (hrs > 12)?(hrs-12):(hrs);
+        /* if time in 24 hrs format turn it in 12 hrs */
+        hrs = (hrs > hoursInHalfADay)?(hrs-hoursInHalfADay):(hrs);
         float hDegree = ((hrs / 12.0f) * degreesInWatch);
         float mDegree = ((min / 60.0f) * degreesInWatch);
         float sDegree = ((msec / 60000.0f) * degreesInWatch);
 
+        /* draw grid, if asked */
         if (drawCenter) {
 
             drawGridArc(canvas);

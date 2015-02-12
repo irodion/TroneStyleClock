@@ -19,6 +19,8 @@
         custom:hoursColor="@color/light_blue"
         custom:secondsColor="@color/light"
         custom:minutesColor="@color/light"
+        custom:hourPointerDegrees="@integer/pointerHour"
+        custom:minutesPointerDegrees="@integer/pointerMinute"
         />
 
     <TextView

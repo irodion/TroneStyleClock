@@ -8,5 +8,7 @@
         <attr name="secondsColor" format="reference|color" />
         <attr name="arcWidth" format="dimension" />
         <attr name="arcPadding" format="dimension" />
+        <attr name="hourPointerDegrees" format="integer" />
+        <attr name="minutesPointerDegrees" format="integer" />
     </declare-styleable>
 </resources>
