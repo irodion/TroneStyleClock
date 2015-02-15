@@ -53,6 +53,9 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
 
     private final float degreesInWatch = 360.0f;
     private final int hoursInHalfADay = 12;
+    private int minutesPointer;
+    private int hoursPointer;
+    private int secondsPointer;
 
     /* constructors */
     public ClockView(Context context) {
@@ -94,6 +97,10 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
 
         arcWidth = attrs.getDimensionPixelSize(R.styleable.ClockView_arcWidth, 0);
         arcPadding = attrs.getDimensionPixelSize(R.styleable.ClockView_arcPadding, 0);
+
+        minutesPointer = attrs.getInt(R.styleable.ClockView_minutesPointerDegrees, 10) /  2;
+        hoursPointer = attrs.getInt(R.styleable.ClockView_hourPointerDegrees, 5) / 2;
+        secondsPointer = attrs.getInteger(R.styleable.ClockView_secondsPointerDegrees, 20) / 2;
     }
 
     private Paint createNewSecondsPaint(Paint basePaint, TypedArray attrs) {
@@ -212,14 +219,32 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
 
     private void drawMinutesArc(Canvas canvas, float mDegree) {
 
-        canvas.drawArc(minutesBound,  mDegree + 15.0f, 345.0f, false, secondsPaintBlur);
-        canvas.drawArc(minutesBound,  mDegree + 15.0f, 345.0f, false, secondsPaintSimple);
+        canvas.drawArc(minutesBound,
+                       mDegree + minutesPointer,
+                       degreesInWatch - 2 * minutesPointer,
+                       false,
+                       secondsPaintBlur);
+
+        canvas.drawArc(minutesBound,
+                       mDegree + minutesPointer,
+                       degreesInWatch - 2 * minutesPointer,
+                       false,
+                       secondsPaintSimple);
     }
 
     private void drawSecondsArc(Canvas canvas, float sDegree) {
 
-        canvas.drawArc(secondsBound, sDegree - 5, 10, false, secondsPaintBlur);
-        canvas.drawArc(secondsBound, sDegree, 5, false, secondsPaintSimple);
+        canvas.drawArc(secondsBound,
+                       sDegree - secondsPointer,
+                       secondsPointer,
+                       false,
+                       secondsPaintBlur);
+
+        canvas.drawArc(secondsBound,
+                       sDegree - secondsPointer,
+                       secondsPointer,
+                       false,
+                       secondsPaintSimple);
     }
 
     private void drawGridArc(Canvas canvas) {
@@ -232,8 +257,16 @@ public class ClockView extends View implements ViewTreeObserver.OnPreDrawListene
 
     protected void drawHoursArc(Canvas canvas, float hDegree) {
 
-        canvas.drawArc(hoursBound,hDegree + 15.0f, 345.0f,false,hoursPaintBlur);
-        canvas.drawArc(hoursBound,hDegree + 15.0f, 345.0f,false,hoursPaintSimple);
+        canvas.drawArc(hoursBound,hDegree + hoursPointer,
+                       degreesInWatch - 2 * hoursPointer,
+                       false,
+                       hoursPaintBlur);
+
+        canvas.drawArc(hoursBound,
+                       hDegree +  hoursPointer,
+                       degreesInWatch - 2 * hoursPointer,
+                       false,
+                       hoursPaintSimple);
     }
 
     private void startClock() {

@@ -10,5 +10,6 @@
         <attr name="arcPadding" format="dimension" />
         <attr name="hourPointerDegrees" format="integer" />
         <attr name="minutesPointerDegrees" format="integer" />
+        <attr name="secondsPointerDegrees" format="integer" />
     </declare-styleable>
 </resources>

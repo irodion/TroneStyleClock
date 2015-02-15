@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <integer name="pointerHour">20</integer>
-    <integer name="pointerMinute">30</integer>
+    <integer name="pointer_hour">20</integer>
+    <integer name="pointer_minute">22</integer>
+    <integer name="pointer_seconds">20</integer>
 </resources>
